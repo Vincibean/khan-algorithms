@@ -38,12 +38,12 @@ import Partial.Unsafe (unsafePartial)
 --- Program.assertEqual(doSearch(primes, 72), -1);
 --- Program.assertEqual(doSearch(primes, 97), 24);
 
-doSearch :: forall a. Eq a => Ord a => Array a -> a -> Int
-doSearch as targetValue = if (mid == targetValue)
+doUnsafeSearch :: forall a. Eq a => Ord a => Array a -> a -> Int
+doUnsafeSearch as targetValue = if (mid == targetValue)
                           then guess
                           else if (mid < targetValue) 
-                          then doSearch sh targetValue
-                          else doSearch fh targetValue
+                          then doUnsafeSearch sh targetValue
+                          else doUnsafeSearch fh targetValue
                             where mid = unsafePartial $ unsafeIndex as guess
                                   guess = (max + min) / 2
                                   min = 0
