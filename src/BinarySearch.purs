@@ -5,6 +5,8 @@ import Prelude
 import Data.Array (length, unsafeIndex, slice)
 import Data.Tuple (Tuple(..), fst, snd)
 
+import Partial.Unsafe (unsafePartial)
+
 --- /* Returns either the index of the location in the array,
 ---   or -1 if the array did not contain the targetValue */
 --- var doSearch = function(array, targetValue) {
@@ -36,13 +38,13 @@ import Data.Tuple (Tuple(..), fst, snd)
 --- Program.assertEqual(doSearch(primes, 72), -1);
 --- Program.assertEqual(doSearch(primes, 97), 24);
 
-doSearch :: forall a. Eq a => Ord a => Partial => Array a -> a -> Int
+doSearch :: forall a. Eq a => Ord a => Array a -> a -> Int
 doSearch as targetValue = if (mid == targetValue)
                           then guess
                           else if (mid < targetValue) 
                           then doSearch sh targetValue
                           else doSearch fh targetValue
-                            where mid = unsafeIndex as guess
+                            where mid = unsafePartial $ unsafeIndex as guess
                                   guess = (max + min) / 2
                                   min = 0
                                   max = length as - 1
