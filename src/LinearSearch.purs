@@ -5,15 +5,6 @@ import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..), fst, snd)
 import Prelude (class Eq, negate, (-), (==))
 
--- var doLinearSearch = function(array, targetValue) {
---   for (var guess = 0; guess < array.length; guess++) {
---     if (array[guess] === targetValue) { 
---         return guess;  // found it!
---     }
---   }
---   return -1;  // didn't find it
--- };
-
 doLinearSearch :: forall a. Eq a => a -> Array a -> Int
 doLinearSearch t ts = innerDoLinearSearch t as
   where as = zipWithIndex ts
