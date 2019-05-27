@@ -7,4 +7,4 @@ import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Runner (run)
 
 main :: Effect Unit
-main = discover "Test\\.Spec\\.Discovery.*Spec" >>= run [consoleReporter]
+main = discover "Test\\.Spec\\..*Spec" >>= run [consoleReporter]
