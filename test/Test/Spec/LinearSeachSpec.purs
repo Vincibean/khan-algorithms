@@ -1,4 +1,4 @@
-module Test.Spec.DiscoverySpec where
+module Test.Spec.LinearSearchSpec (spec) where
 
 import Prelude
 
