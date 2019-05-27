@@ -1,4 +1,8 @@
-module LinearSearch where
+module LinearSearch
+       ( doLinearSearch
+       , doLinearSearch'
+       , doLinearSearch''
+       ) where
 
 import Data.Array (elemIndex, findIndex, length, range, uncons, zipWith)
 import Data.Maybe (Maybe(..))
