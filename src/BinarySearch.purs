@@ -1,4 +1,4 @@
-module BinarySearch where
+module BinarySearch (doUnsafeSearch) where
 
 import Prelude
 
@@ -39,7 +39,9 @@ import Partial.Unsafe (unsafePartial)
 --- Program.assertEqual(doSearch(primes, 97), 24);
 
 doUnsafeSearch :: forall a. Eq a => Ord a => a -> Array a -> Int
-doUnsafeSearch targetValue as = if (mid == targetValue)
+doUnsafeSearch targetValue [] = -1
+doUnsafeSearch targetValue as = 
+                          if (mid == targetValue)
                           then guess
                           else if (mid < targetValue) 
                           then doUnsafeSearch targetValue sh
@@ -48,9 +50,7 @@ doUnsafeSearch targetValue as = if (mid == targetValue)
                                   guess = (max + min) / 2
                                   min = 0
                                   max = length as - 1
-                                  fh = fst t
-                                  sh = snd t
-                                  t = split as
+                                  (Tuple fh sh) = split as
           
 
 split :: forall a. Array a -> Tuple (Array a) (Array a)
