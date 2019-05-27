@@ -15,12 +15,12 @@ import Prelude (class Eq, negate, (-), (==))
 -- };
 
 doLinearSearch :: forall a. Eq a => a -> Array a -> Int
-doLinearSearch t xs = innerDoLinearSearch t as
-  where as = zipWithIndex xs
-        innerDoLinearSearch t as = case uncons as of
+doLinearSearch t ts = innerDoLinearSearch t as
+  where as = zipWithIndex ts
+        innerDoLinearSearch x xs = case uncons xs of
           Nothing -> -1
-          Just { head: h, tail: ts } | snd h == t -> fst h
-          Just { head, tail: ts } -> innerDoLinearSearch t ts
+          Just { head: h, tail: _ } | snd h == x -> fst h
+          Just { head, tail: tts } -> innerDoLinearSearch t tts
         
 doLinearSearch' :: forall a. Eq a => a -> Array a -> Maybe Int
 doLinearSearch' x = findIndex (_ == x)
