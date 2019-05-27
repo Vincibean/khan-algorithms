@@ -3,7 +3,7 @@ module BinarySearch (doUnsafeSearch) where
 import Prelude
 
 import Data.Array (length, unsafeIndex, slice)
-import Data.Tuple (Tuple(..), fst, snd)
+import Data.Tuple (Tuple(..))
 
 import Partial.Unsafe (unsafePartial)
 
