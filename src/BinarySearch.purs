@@ -2,10 +2,11 @@ module BinarySearch (doUnsafeSearch) where
 
 import Prelude
 
+import Control.Comonad.Store (pos)
 import Data.Array (length, unsafeIndex, slice)
 import Data.Tuple (Tuple(..))
-
 import Partial.Unsafe (unsafePartial)
+import Undefined (undefined)
 
 --- /* Returns either the index of the location in the array,
 ---   or -1 if the array did not contain the targetValue */
@@ -39,18 +40,7 @@ import Partial.Unsafe (unsafePartial)
 --- Program.assertEqual(doSearch(primes, 97), 24);
 
 doUnsafeSearch :: forall a. Eq a => Ord a => a -> Array a -> Int
-doUnsafeSearch targetValue [] = -1
-doUnsafeSearch targetValue as = 
-                          if (mid == targetValue)
-                          then guess
-                          else if (mid < targetValue) 
-                          then doUnsafeSearch targetValue sh
-                          else doUnsafeSearch targetValue fh
-                            where mid = unsafePartial $ unsafeIndex as guess
-                                  guess = (max + min) / 2
-                                  min = 0
-                                  max = length as - 1
-                                  (Tuple fh sh) = split as
+doUnsafeSearch = doUnsafeSearchRec 0
           
 
 split :: forall a. Array a -> Tuple (Array a) (Array a)
@@ -60,3 +50,19 @@ split as = Tuple fh sh
         sh = slice m l as
         m = l / 2
         l = length as
+
+doUnsafeSearchRec :: forall a. Eq a => Ord a => Int -> a -> Array a -> Int
+doUnsafeSearchRec tpos targetValue [] = -1
+doUnsafeSearchRec tpos targetValue as = 
+                          if (mid == targetValue)
+                          then resultPos
+                          else if (mid < targetValue) 
+                          then doUnsafeSearchRec updatedPos targetValue sh
+                          else doUnsafeSearchRec tpos targetValue fh
+                            where mid = unsafePartial $ unsafeIndex as guess
+                                  guess = (max + min) / 2
+                                  min = 0
+                                  max = length as - 1
+                                  (Tuple fh sh) = split as
+                                  resultPos = tpos + guess
+                                  updatedPos = tpos + length fh

@@ -19,6 +19,10 @@ primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67
 doUnsafeSearchSpec :: Spec Unit
 doUnsafeSearchSpec = 
   describe "doUnsafeSearch" do
+    it "return the index of the value if present (first position, 1 elements array)" do
+      doUnsafeSearch 1 [1] `shouldEqual` 0
+    it "return the index of the value if present (second position, 2 elements array)" do
+      doUnsafeSearch 1 [0, 1] `shouldEqual` 1
     it "return the index of the value if present (middle position)" do
       doUnsafeSearch 73 primes `shouldEqual` 20
     it "returns -1 if it couldn't find a value in an array" do
