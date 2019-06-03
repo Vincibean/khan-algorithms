@@ -3,17 +3,15 @@ module Test.Spec.BinarySearchSpec (spec) where
 import Prelude
 
 import BinarySearch (doUnsafeSearch)
+import Data.Maybe (Maybe(..))
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 
 spec :: Spec Unit
 spec = do
   doUnsafeSearchSpec
-  
---- Program.assertEqual(doSearch(primes, 73), 20);
---- Program.assertEqual(doSearch(primes, 72), -1);
---- Program.assertEqual(doSearch(primes, 97), 24);
 
+primes :: Array Int
 primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
 
 doUnsafeSearchSpec :: Spec Unit
