@@ -1,7 +1,6 @@
 name:                khan-algorithms
 version:             0.1.0.0
 github:              "Vincibean/khan-algorithms"
-license:             BSD3
 author:              "Vincibean"
 maintainer:          "andrebessi00@gmail.com"
 copyright:           "2019 Vincibean"
