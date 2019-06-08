@@ -38,7 +38,7 @@ primes =
 
 spec :: Spec
 spec = do
-    describe "doUnsafeSearch" $ do
+    describe "binarySearch" $ do
         it
                 "returns the index of the value if present (first position, 1 elements array)"
             $ do
