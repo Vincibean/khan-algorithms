@@ -5,15 +5,10 @@ where
 
 import           Test.Hspec
 
-import           Data.Array                     ( Array
-                                                , listArray
-                                                )
-
 import           Algo.BinarySearch              ( binarySearch )
 
-primes :: Array Int Int
-primes = listArray
-    (0, 24)
+primes :: [Int]
+primes =
     [ 2
     , 3
     , 5
@@ -47,11 +42,11 @@ spec = do
         it
                 "returns the index of the value if present (first position, 1 elements array)"
             $ do
-                  binarySearch (listArray (0, 0) [1]) 1 `shouldBe` Just 0
+                  binarySearch [1] 1 `shouldBe` Just 0
         it
                 "returns the index of the value if present (second position, 2 elements array)"
             $ do
-                  binarySearch (listArray (0, 1) [0, 1]) 1 `shouldBe` Just 1
+                  binarySearch [0, 1] 1 `shouldBe` Just 1
         it "returns the index of the value if present (middle position)" $ do
             binarySearch primes 73 `shouldBe` Just 20
         it "returns Nothing if it couldn't find a value in an array" $ do
