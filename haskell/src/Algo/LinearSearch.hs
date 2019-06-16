@@ -3,7 +3,7 @@ module Algo.LinearSearch
     )
 where
 
-import           Data.List                      ( findIndex )
+import           Data.List                      ( elemIndex )
 
 linearSearch :: Eq a => a -> [a] -> Maybe Int
-linearSearch el = findIndex (== el)
+linearSearch = elemIndex
