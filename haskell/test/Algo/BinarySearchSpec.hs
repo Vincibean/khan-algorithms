@@ -37,19 +37,21 @@ primes =
     ]
 
 spec :: Spec
-spec = do
-    describe "binarySearch" $ do
-        it
-                "returns the index of the value if present (first position, 1 elements array)"
-            $ do
-                  binarySearch 1 [1] `shouldBe` Just 0
-        it
-                "returns the index of the value if present (second position, 2 elements array)"
-            $ do
-                  binarySearch 1 [0, 1] `shouldBe` Just 1
-        it "returns the index of the value if present (middle position)" $ do
-            binarySearch 73 primes `shouldBe` Just 20
-        it "returns Nothing if it couldn't find a value in an array" $ do
-            binarySearch 72 primes `shouldBe` Nothing
-        it "returns the index of the value if present (last position)" $ do
-            binarySearch 97 primes `shouldBe` Just 24
+spec = describe "binarySearch" $ do
+    it
+            "returns the index of the value if present (first position, 1 elements array)"
+        $          binarySearch 1 [1]
+        `shouldBe` Just 0
+    it
+            "returns the index of the value if present (second position, 2 elements array)"
+        $          binarySearch 1 [0, 1]
+        `shouldBe` Just 1
+    it "returns the index of the value if present (middle position)"
+        $          binarySearch 73 primes
+        `shouldBe` Just 20
+    it "returns Nothing if it couldn't find a value in an array"
+        $          binarySearch 72 primes
+        `shouldBe` Nothing
+    it "returns the index of the value if present (last position)"
+        $          binarySearch 97 primes
+        `shouldBe` Just 24
