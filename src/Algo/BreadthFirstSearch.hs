@@ -1,3 +1,11 @@
+-----------------------------------------------------------------------------
+--
+-- Inspired by
+--
+-- https://lettier.github.io/posts/2016-04-29-breadth-first-search-in-haskell.html
+--
+-----------------------------------------------------------------------------
+
 module Algo.BreadthFirstSearch
   ( doBFS
   , Vertex(..)
@@ -36,6 +44,7 @@ doBFS'
   -> [Vertex a]    -- Seen
   -> Int           -- Distance of the previous node
   -> GraphDescr a  -- Out
+doBFS' (Graph [])      _                    _       _    _    = GraphDescr []
 doBFS' _               outGraph             []      _    _    = outGraph
 doBFS' (Graph (a : b)) (GraphDescr (c : d)) (e : f) seen dist = doBFS'
   inGraph
