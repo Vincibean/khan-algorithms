@@ -8,15 +8,15 @@ import           Algo.BreadthFirstSearch
 
 g :: Graph Int
 g = Graph
-    [ Vertex 1 [2, 3]       0
-    , Vertex 2 [1, 4, 5]    0
-    , Vertex 3 [1, 4]       0
-    , Vertex 4 [2, 3, 5]    0
-    , Vertex 5 [2, 4, 6, 7] 0
-    , Vertex 6 [5, 7, 8]    0
-    , Vertex 7 [5, 6, 9]    0
-    , Vertex 8 [6, 9]       0
-    , Vertex 9 [7, 8]       0
+    [ Vertex 1 [2, 3]
+    , Vertex 2 [1, 4, 5]
+    , Vertex 3 [1, 4]
+    , Vertex 4 [2, 3, 5]
+    , Vertex 5 [2, 4, 6, 7]
+    , Vertex 6 [5, 7, 8]
+    , Vertex 7 [5, 6, 9]
+    , Vertex 8 [6, 9]
+    , Vertex 9 [7, 8]
     ]
 
 spec :: Spec

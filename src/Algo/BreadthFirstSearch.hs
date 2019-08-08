@@ -10,7 +10,6 @@ where
 data Vertex a = Vertex {
                           vertexLabel :: a
                         , vertexNeighbors :: [a]
-                        , vertexDistance :: Int
                       } deriving (Show, Eq)
 
 newtype Graph a = Graph { vertices :: [Vertex a] } deriving (Show, Eq)
@@ -23,7 +22,7 @@ data VertexDescr a = VertexDescr {
 newtype GraphDescr a = GraphDescr { verticesDescriptions :: [VertexDescr a] }  deriving (Show, Eq)
 
 doBFS :: (Num a, Eq a) => Graph a -> Vertex a -> GraphDescr a
-doBFS inGraph source = doBFS' inGraph outGraph queue seen
+doBFS inGraph source = doBFS' inGraph outGraph queue seen 0
  where
   queue    = [source]
   outGraph = GraphDescr [VertexDescr 0 Nothing]
@@ -35,26 +34,28 @@ doBFS'
   -> GraphDescr a  -- Out
   -> [Vertex a]    -- Queue
   -> [Vertex a]    -- Seen
+  -> Int           -- Distance of the previous node
   -> GraphDescr a  -- Out
-doBFS' _               outGraph             []      _    = outGraph
-doBFS' (Graph (a : b)) (GraphDescr (c : d)) (e : f) seen = doBFS' inGraph
-                                                                  outGraph
-                                                                  queue
-                                                                  seen'
+doBFS' _               outGraph             []      _    _    = outGraph
+doBFS' (Graph (a : b)) (GraphDescr (c : d)) (e : f) seen dist = doBFS'
+  inGraph
+  outGraph
+  queue
+  seen'
+  (newDist + 1)
  where
   inGraph           = Graph (a : b)
   currLabel         = vertexLabel e
   eNeighbors        = vertexNeighbors e
   eVertexNeighbors  = verticesByLabels inGraph eNeighbors
-  dist              = vertexDistance e + 1
+  newDist           = dist + 1
   filteredNeighbors = filterVertexNeighbors seen eVertexNeighbors -- Remove all neighbors that have been queued up before.
   enqueueDescr      = replicate
     (length filteredNeighbors)
-    VertexDescr { distance = dist, predecessor = Just currLabel }
-  enqueueV = updateDist filteredNeighbors dist
+    VertexDescr { distance = newDist, predecessor = Just currLabel }
   outGraph = GraphDescr $ (c : d) ++ enqueueDescr
-  queue    = f ++ enqueueV
-  seen'    = seen ++ enqueueV
+  queue    = f ++ filteredNeighbors
+  seen'    = seen ++ filteredNeighbors
 
 verticesByLabels :: Eq a => Graph a -> [a] -> [Vertex a]
 verticesByLabels (Graph []     ) _  = []
@@ -70,8 +71,3 @@ filterVertexNeighbors s  vn = filter (not . vertexInVertexes s) vn
 vertexInVertexes :: Eq a => [Vertex a] -> Vertex a -> Bool
 vertexInVertexes [] _ = False
 vertexInVertexes vs v = vertexLabel v `elem` map vertexLabel vs
-
-updateDist :: [Vertex a] -> Int -> [Vertex a]
-updateDist [] _ = []
-updateDist (x : y) dist =
-  map (\(Vertex label n _) -> Vertex label n dist) (x : y)
