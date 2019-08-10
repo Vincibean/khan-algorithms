@@ -32,7 +32,7 @@ spec = describe "doBFS" $ do
         `shouldBe` []
     it "return the expected result in the other cases" $ do
         let res = verticesDescriptions (doBFS fullGraph source)
-        _ <- head res `shouldBe` expFst
+        head res `shouldBe` expFst
         second res `shouldBe` expSnd
   where
     second = head . tail
